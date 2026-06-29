@@ -337,6 +337,46 @@ GGUF_CONFIG_MAPPING = {
         "vocab_size": "vocab_size",
         "expert_gating_func": "scoring_func",
     },
+    "deepseek4": {
+        "context_length": "max_position_embeddings",
+        "block_count": "num_hidden_layers",
+        "feed_forward_length": "intermediate_size",
+        "embedding_length": "hidden_size",
+        "rope.dimension_count": None,
+        "rope.freq_base": "rope_theta",
+        "attention.head_count": "num_attention_heads",
+        "attention.head_count_kv": "num_key_value_heads",
+        "attention.key_length": "head_dim",
+        "attention.value_length": None,
+        "attention.layer_norm_rms_epsilon": "rms_norm_eps",
+        "vocab_size": "vocab_size",
+        "expert_count": "n_routed_experts",
+        "expert_used_count": "num_experts_per_tok",
+        "expert_feed_forward_length": "moe_intermediate_size",
+        "expert_shared_count": "n_shared_experts",
+        "expert_weights_scale": "routed_scaling_factor",
+        "expert_gating_func": "scoring_func",
+        "attention.q_lora_rank": "q_lora_rank",
+        "attention.output_lora_rank": "o_lora_rank",
+        "attention.output_group_count": "o_groups",
+        "attention.compress_ratios": "compress_ratios",
+        "attention.compress_rope_freq_base": "compress_rope_theta",
+        "attention.sliding_window": "sliding_window",
+        "attention.indexer.head_count": "index_n_heads",
+        "attention.indexer.key_length": "index_head_dim",
+        "attention.indexer.top_k": "index_topk",
+        "rope.scaling.type": "rope_scaling_type",
+        "rope.scaling.factor": "rope_scaling_factor",
+        "rope.scaling.original_context_length": "rope_original_context_length",
+        "rope.scaling.yarn_beta_fast": "rope_beta_fast",
+        "rope.scaling.yarn_beta_slow": "rope_beta_slow",
+        "hash_layer_count": "num_hash_layers",
+        "nextn_predict_layers": "num_nextn_predict_layers",
+        "hyper_connection.count": "hc_mult",
+        "hyper_connection.sinkhorn_iterations": "hc_sinkhorn_iters",
+        "hyper_connection.epsilon": "hc_eps",
+        "swiglu_clamp_exp": "swiglu_limit",
+    },
 }
 
 GGUF_TOKENIZER_MAPPING = {
@@ -375,6 +415,10 @@ GGUF_CONFIG_DEFAULTS_MAPPING = {
         # but this is not stored in GGUF metadata. Set it as default so the model weights
         # (which include e_score_correction_bias tensors) are loaded correctly.
         "use_routing_bias": True,
+    },
+    "deepseek4": {
+        # DeepSeek-V4 uses norm_topk_prob like Qwen3Moe.
+        "norm_topk_prob": True,
     },
 }
 
@@ -824,6 +868,7 @@ GGUF_TO_FAST_CONVERTERS = {
     "deci": GGUFLlamaConverter,
     "decilm": GGUFLlamaConverter,
     "minimax_m2": GGUFQwen2Converter,
+    "deepseek4": GGUFQwen2Converter,
 }
 
 

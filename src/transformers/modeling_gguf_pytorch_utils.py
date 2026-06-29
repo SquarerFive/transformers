@@ -520,6 +520,8 @@ def get_gguf_hf_weights_map(
         model_type = "t5"
     elif model_type == "minimax_m2":
         model_type = "minimax-m2"
+    elif model_type == "deepseek_v4":
+        model_type = "deepseek4"
     elif model_type == "gpt_oss":
         model_type = "gpt-oss"
     arch = None
@@ -634,6 +636,8 @@ def load_gguf_checkpoint(gguf_checkpoint_path, return_tensors=False, model_to_lo
         updated_architecture = "qwen3_moe"
     elif "minimax-m2" in architecture:
         updated_architecture = "minimax_m2"
+    elif "deepseek4" in architecture:
+        updated_architecture = "deepseek_v4"
 
     # For stablelm architecture, we need to set qkv_bias and use_parallel_residual from tensors
     # If `qkv_bias=True`, qkv_proj with bias will be present in the tensors
